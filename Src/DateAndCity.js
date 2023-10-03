@@ -1,28 +1,34 @@
 import React from 'react';
 
 import {
+  // FlatList,
   // SafeAreaView,
   // ScrollView,
   // StatusBar,
   StyleSheet,
   Text,
+  Dimensions,
   // TouchableOpacity,
   // useColorScheme,
   // Alert,
   View,
 } from 'react-native';
+const screenWidth = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
   Content: {
-    alignSelf: 'stretch',
+    maxWidth: screenWidth,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 20,
     paddingHorizontal: 5,
   },
   textLg: {
+    flex: 1,
     fontSize: 25,
     color: 'white',
+  },
+  rowWidth: {
+    width: '50%',
   },
 });
 
@@ -33,12 +39,21 @@ export default function DateAndCity(props) {
   // const [city, setCity] = useState('Paris, FR');
   if (props.data.loaded === true) {
     return (
-      <View style={styles.Content}>
-        <View>
-          <Text style={styles.textLg}>{props.data.cityName}</Text>
-        </View>
-        <View>
-          <Text style={styles.textLg}>{currentDayOfWeek}</Text>
+      <View>
+        <View style={styles.Content}>
+          {/* <FlatList
+            data={data}
+            numColumns={2}
+            renderItem={({item}) => (
+            )}
+          /> */}
+          <View style={styles.rowWidth}>
+            <Text style={styles.textLg}>{props.data.cityName}</Text>
+          </View>
+
+          <View>
+            <Text style={styles.textLg}>{currentDayOfWeek}</Text>
+          </View>
         </View>
       </View>
     );

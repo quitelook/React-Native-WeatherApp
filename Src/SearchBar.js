@@ -37,11 +37,17 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
+  searchInputError: {
+    marginTop: 5,
+    color: 'white',
+    fontSize: 18,
+  },
 });
 
 export default function SearchBar() {
   const {setGlobalWeather} = useGlobalWeather();
-  const [city, setCity] = useState('london');
+  const [city, setCity] = useState('');
+  const [searchInputError, setsearchInputError] = useState('');
 
   // useEffect(() => {
   //   // Perform state update here, triggered by some event or condition
@@ -50,43 +56,53 @@ export default function SearchBar() {
   // }, [globalWeather.loaded]);
 
   function fetchApi(cityToSearchFor) {
-    let key = 'b7c86efaac7c13373o4d08b12f9t3f33';
-    let url = `https://api.shecodes.io/weather/v1/current?query=${cityToSearchFor}&key=${key}&units=metric`;
-    fetch(url)
-      .then(res => {
-        return res.json();
-      })
-      .then(data => {
-        setGlobalWeather({
-          loaded: true,
-          cityName: data.city,
-          description: data.condition.description,
-          icon_url: data.condition.icon_url,
-          temperature: data.temperature.current,
-          humidity: data.temperature.humidity,
-          wind: data.wind.speed,
-          time: data.time,
+    if (cityToSearchFor !== '') {
+      let key = 'b7c86efaac7c13373o4d08b12f9t3f33';
+      let url = `https://api.shecodes.io/weather/v1/current?query=${cityToSearchFor}&key=${key}&units=metric`;
+      fetch(url)
+        .then(res => {
+          return res.json();
+        })
+        .then(data => {
+          setGlobalWeather({
+            loaded: true,
+            cityName: data.city,
+            description: data.condition.description,
+            icon_url: data.condition.icon_url,
+            temperature: data.temperature.current,
+            humidity: data.temperature.humidity,
+            wind: data.wind.speed,
+            time: data.time,
+          });
         });
-      });
+    } else {
+      setsearchInputError('Enter a city');
+      setTimeout(() => {
+        setsearchInputError('');
+      }, 1000);
+    }
   }
 
   return (
-    <View style={styles.searchBar}>
-      <TextInput
-        onChangeText={text => {
-          setCity(text);
-        }}
-        style={styles.inputStyle}
-        placeholder="Type in a City...."
-      />
+    <View>
+      <View style={styles.searchBar}>
+        <TextInput
+          onChangeText={text => {
+            setCity(text);
+          }}
+          style={styles.inputStyle}
+          placeholder="Type in a City...."
+        />
 
-      <TouchableOpacity
-        style={styles.buttonStyle}
-        onPress={() => {
-          fetchApi(city);
-        }}>
-        <Text style={styles.buttonText}>Search</Text>
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.buttonStyle}
+          onPress={() => {
+            fetchApi(city);
+          }}>
+          <Text style={styles.buttonText}>Search</Text>
+        </TouchableOpacity>
+      </View>
+      <Text style={styles.searchInputError}> {searchInputError}</Text>
     </View>
   );
 }

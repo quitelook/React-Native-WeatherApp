@@ -14,7 +14,6 @@ const styles = StyleSheet.create({
   container: {
     // marginTop: 50,
     alignItems: 'center',
-    justifyContent: 'center',
   },
 
   Forecasts: {
@@ -69,15 +68,14 @@ export default function Forecast(props) {
         return res.json();
       })
       .then(data => {
-        let foreCastData = data.daily.slice(0, 6);
+        let foreCastData = data.daily.slice(0, 7);
         setData(foreCastData);
       });
   }
   if (DATA) {
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 7; i++) {
       const currentItem = DATA[i];
       let imageUrl = currentItem.condition.icon_url;
-
       let secureUrlString = imageUrl.replace('http://', 'https://');
       const newItem = {
         temp: Math.round(currentItem.temperature.day),
@@ -97,10 +95,13 @@ export default function Forecast(props) {
     return (
       <View style={styles.container}>
         <FlatList
+          horizontal={true} // Enable horizontal scrolling
+          pagingEnabled={true}
+          showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.container}
           data={FORECAST}
-          numColumns={6}
-          scrollEnabled={false}
+          scrollEnabled={true}
+          keyExtractor={(item, index) => index.toString()}
           renderItem={({item}) => (
             <View style={styles.day}>
               <Text style={styles.item}>{getShortCurrentDay(item.time)}</Text>

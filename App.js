@@ -17,6 +17,7 @@ import Forecast from './Src/Forecast';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import {
   ImageBackground,
+  SafeAreaView,
   ScrollView,
   // StatusBar,
   StyleSheet,
@@ -24,7 +25,7 @@ import {
   Dimensions,
   // Image,
   // TouchableOpacity,
-  // useColorScheme,
+  useColorScheme,
   // Alert,
   View,
 } from 'react-native';
@@ -41,6 +42,9 @@ const screenWidth = Dimensions.get('window').width;
 const foreCastColumn = screenWidth / 6;
 
 const App = () => {
+  const colorScheme = useColorScheme();
+
+  const skeletonStyles = colorScheme === 'dark' ? '#282C34' : 'lightgray';
   const {globalWeather, setGlobalWeather} = useGlobalWeather();
 
   function fetchApi(cityToSearchFor) {
@@ -70,57 +74,61 @@ const App = () => {
         source={require('./weatherappBg.jpeg')}
         // Replace with the path to your image
         style={styles.backgroundImage}>
-        <View style={styles.container}>
-          <ScrollView contentContainerStyle={styles.container}>
-            <SearchBar />
-            <DateAndCity data={globalWeather} />
-            <WeatherDetails data={globalWeather} />
-            <Temperature data={globalWeather} />
+        <SafeAreaView style={styles.container}>
+          <View style={styles.container}>
+            <ScrollView contentContainerStyle={styles.container}>
+              <SearchBar />
+              <DateAndCity data={globalWeather} />
+              <WeatherDetails data={globalWeather} />
+              <Temperature data={globalWeather} />
 
-            <View>
-              <Forecast data={globalWeather} />
-            </View>
-          </ScrollView>
-        </View>
+              <View>
+                <Forecast data={globalWeather} />
+              </View>
+            </ScrollView>
+          </View>
+        </SafeAreaView>
       </ImageBackground>
       // </SafeAreaView>
     );
   } else {
     fetchApi('paris');
     return (
-      <SkeletonPlaceholder>
-        <View style={styles.skeletonContainer}>
-          <ScrollView contentContainerStyle={styles.skeletonContainer}>
-            <View style={styles.SearchBarSkeleton}>
-              <View style={styles.searchInput} />
-              <View style={styles.searchButton} />
-            </View>
+      <SafeAreaView>
+        <SkeletonPlaceholder backgroundColor={skeletonStyles}>
+          <View style={styles.skeletonContainer}>
+            <ScrollView contentContainerStyle={styles.skeletonContainer}>
+              <View style={styles.SearchBarSkeleton}>
+                <View style={styles.searchInput} />
+                <View style={styles.searchButton} />
+              </View>
 
-            <View style={styles.DateAndCitySkeleton}>
-              <View style={styles.DateandCityText} />
-              <View style={styles.DateandCityText} />
-            </View>
+              <View style={styles.DateAndCitySkeleton}>
+                <View style={styles.DateandCityText} />
+                <View style={styles.DateandCityText} />
+              </View>
 
-            <View style={styles.WeatherDetailsSkeleton}>
-              <View style={styles.WeatherDeatailText} />
-              <View style={styles.WeatherDeatailText} />
-              <View style={styles.WeatherDeatailText} />
-            </View>
-            <View style={styles.forCastSkeleton}>
-              <View style={styles.avatar} />
-            </View>
+              <View style={styles.WeatherDetailsSkeleton}>
+                <View style={styles.WeatherDeatailText} />
+                <View style={styles.WeatherDeatailText} />
+                <View style={styles.WeatherDeatailText} />
+              </View>
+              <View style={styles.forCastSkeleton}>
+                <View style={styles.avatar} />
+              </View>
 
-            <View style={styles.forCastSkeleton}>
-              <View style={styles.ForecastText} />
-              <View style={styles.ForecastText} />
-              <View style={styles.ForecastText} />
-              <View style={styles.ForecastText} />
-              <View style={styles.ForecastText} />
-              <View style={styles.ForecastText} />
-            </View>
-          </ScrollView>
-        </View>
-      </SkeletonPlaceholder>
+              <View style={styles.forCastSkeleton}>
+                <View style={styles.ForecastText} />
+                <View style={styles.ForecastText} />
+                <View style={styles.ForecastText} />
+                <View style={styles.ForecastText} />
+                <View style={styles.ForecastText} />
+                <View style={styles.ForecastText} />
+              </View>
+            </ScrollView>
+          </View>
+        </SkeletonPlaceholder>
+      </SafeAreaView>
     );
   }
 };
@@ -148,7 +156,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     alignSelf: 'center',
     justifyContent: 'space-between',
-    marginTop: 30,
+    marginBottom: 15,
   },
   searchInput: {
     width: '72%',
