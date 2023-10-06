@@ -13,7 +13,6 @@ const styles = StyleSheet.create({
   inputStyle: {
     borderRadius: 4,
     width: '75%',
-    marginTop: 12,
     marginEnd: 5,
     borderWidth: 1,
     padding: 10,
@@ -25,7 +24,6 @@ const styles = StyleSheet.create({
   },
   buttonStyle: {
     width: 'auto',
-    marginTop: 12,
     padding: 10,
     marginStart: 5,
     borderRadius: 4,

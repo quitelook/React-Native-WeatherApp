@@ -79,8 +79,8 @@ const App = () => {
             <ScrollView contentContainerStyle={styles.container}>
               <SearchBar />
               <DateAndCity data={globalWeather} />
-              <WeatherDetails data={globalWeather} />
               <Temperature data={globalWeather} />
+              <WeatherDetails data={globalWeather} />
 
               <View>
                 <Forecast data={globalWeather} />
@@ -107,14 +107,13 @@ const App = () => {
                 <View style={styles.DateandCityText} />
                 <View style={styles.DateandCityText} />
               </View>
-
+              <View style={styles.forCastSkeleton}>
+                <View style={styles.avatar} />
+              </View>
               <View style={styles.WeatherDetailsSkeleton}>
                 <View style={styles.WeatherDeatailText} />
                 <View style={styles.WeatherDeatailText} />
                 <View style={styles.WeatherDeatailText} />
-              </View>
-              <View style={styles.forCastSkeleton}>
-                <View style={styles.avatar} />
               </View>
 
               <View style={styles.forCastSkeleton}>
@@ -140,8 +139,6 @@ const styles = StyleSheet.create({
   },
 
   backgroundImage: {
-    paddingTop: 25,
-    paddingBottom: 20,
     flex: 1,
     resizeMode: 'cover', // You can adjust the resizeMode as needed (cover, contain, stretch, etc.)
     justifyContent: 'center', // You can adjust the alignment as needed
@@ -155,7 +152,7 @@ const styles = StyleSheet.create({
   skeletonContainer: {
     flexGrow: 1,
     alignSelf: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     marginBottom: 15,
   },
   searchInput: {
@@ -171,13 +168,11 @@ const styles = StyleSheet.create({
   },
   DateandCityText: {
     borderRadius: 4,
-    // marginTop: 10,
     width: '35%',
     height: 30,
   },
   WeatherDeatailText: {
     borderRadius: 7,
-    // marginTop: 10,
     width: '25%',
     height: 40,
   },

@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   weatherImage: {
     width: 55,
     height: 55,
-    marginLeft: 7,
+    marginLeft: 4,
     resizeMode: 'contain',
   },
   day: {

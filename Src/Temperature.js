@@ -8,6 +8,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   tempUnit: {
+    marginTop: 10,
     fontSize: 25,
   },
   weatherImage: {
@@ -15,7 +16,7 @@ const styles = StyleSheet.create({
   },
   temp: {
     color: 'white',
-    fontSize: 68,
+    fontSize: 75,
   },
   container: {
     flex: 1,
