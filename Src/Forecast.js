@@ -2,18 +2,24 @@ import React, {useEffect, useState} from 'react';
 import {
   FlatList,
   Image,
-  Dimensions,
+  // Dimensions,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
-const screenWidth = Dimensions.get('window').width;
-const foreCastColumn = screenWidth / 6;
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {faCalendar} from '@fortawesome/free-solid-svg-icons/faCalendar';
+
+// const screenWidth = Dimensions.get('window').width;
+// const foreCastColumn = screenWidth / 6;
 
 const styles = StyleSheet.create({
   container: {
-    // marginTop: 50,
-    alignItems: 'center',
+    maxWidth: '90%',
+    borderRadius: 10,
+    marginLeft: '5%',
+    padding: 5,
+    backgroundColor: 'rgba(65, 82, 149,0.6)',
   },
 
   Forecasts: {
@@ -27,9 +33,9 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   day: {
-    width: foreCastColumn,
-    borderRadius: 4,
+    // width: foreCastColumn,
     alignitem: 'center',
+    paddingTop: 9,
   },
   item: {
     textAlign: 'center',
@@ -43,6 +49,20 @@ const styles = StyleSheet.create({
     fontSize: 17,
     padding: 'auto',
     opacity: 0.5,
+  },
+  ForecastTitle: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: '800',
+  },
+
+  TitleContainer: {
+    textAlign: 'left',
+  },
+  ForecastLine: {
+    borderBottomWidth: 0.4,
+    width: '100%',
+    borderBottomColor: '#fff',
   },
 });
 
@@ -94,11 +114,20 @@ export default function Forecast(props) {
   if (FORECAST) {
     return (
       <View style={styles.container}>
+        <Text style={styles.TitleContainer}>
+          <FontAwesomeIcon
+            icon={faCalendar}
+            style={styles.titleIcon}
+            color="white"
+          />
+          <Text style={styles.ForecastTitle}>7-DAY FORECAST</Text>
+        </Text>
+        <View style={styles.ForecastLine} />
         <FlatList
           horizontal={true} // Enable horizontal scrolling
           pagingEnabled={true}
           showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.container}
+          contentContainerStyle={styles.containers}
           data={FORECAST}
           scrollEnabled={true}
           keyExtractor={(item, index) => index.toString()}

@@ -20,13 +20,15 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   textLg: {
-    borderRadius: 15,
-    backgroundColor: '#415295',
-    paddingVertical: 6,
-    paddingHorizontal: 5,
+    paddingHorizontal: 7,
     fontSize: 15,
     color: 'white',
     textTransform: 'capitalize',
+  },
+  bg: {
+    paddingVertical: 9,
+    borderRadius: 15,
+    backgroundColor: 'rgba(65, 82, 149,0.7)',
   },
 });
 
@@ -35,13 +37,13 @@ export default function WeatherDetails(props) {
 
   return (
     <View style={styles.WeatherInfo}>
-      <View style={styles.textLg}>
+      <View style={styles.bg}>
         <Text style={styles.textLg}>Humidity:{props.data.humidity}%</Text>
       </View>
-      <View style={styles.textLg}>
+      <View style={styles.bg}>
         <Text style={styles.textLg}>Wind:{wind}Km/h</Text>
       </View>
-      <View style={styles.textLg}>
+      <View style={styles.bg}>
         <Text style={styles.textLg}>{props.data.description}</Text>
       </View>
     </View>
